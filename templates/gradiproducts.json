@@ -1,7 +1,21 @@
 {
     "sections": {
       "main": {
-        "type": "productsgrid"
+        "type": "productsgrid",
+        "blocks": {
+          "vendor": {
+            "type": "text",
+            "settings": {
+              "text": "{{ product.vendor }}",
+              "text_style": "uppercase"
+            }
+          },
+          "title": {
+            "type": "title",
+            "settings": {
+            }
+          }
+        }
       }
     },
     "order": [
