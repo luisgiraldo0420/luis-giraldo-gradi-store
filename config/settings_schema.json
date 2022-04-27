@@ -1143,5 +1143,16 @@
         "default": true
       }
     ]
+  },
+  {
+    "name": "t:settings_schema.color_mapping",
+    "settings": [
+      {
+        "type": "textarea",
+        "id": "color_mapping",
+        "label": "t:settings_schema.color.mapping",
+        "default": "Red: #FF0000, Blue: #0000FF, Black: #000000, Green: #088A08"
+      }
+    ]
   }
 ]

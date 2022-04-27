@@ -1,11 +1,44 @@
-<h1>hola</h1>
 
-{{ collections['coleccionprod'].handle | json }}
-{% for product in collections['coleccionprod'].products %}
-    <div>
-        <h3>{{ product.title }}</h3>
-        {% for image in product.images %}
-            <img src="{{ image | image_url: width: 300 }}" alt="{{ product.title }}" loading='lazy' width=300 height=300/>
-          {% endfor %}
+<div class="color-{{ section.settings.color_scheme }} gradient">
+    <div class="product-recommendations page-width section-{{ section.id }}-padding isolate" data-url="{{ routes.product_recommendations_url }}?section_id={{ section.id }}&product_id={{ product.id }}&limit={{ section.settings.products_to_show }}">
+      <div class="title-wrapper-with-link{% if show_mobile_slider %} title-wrapper--self-padded-tablet-down{% else %} title-wrapper--self-padded-mobile{% endif %} title-wrapper--no-top-margin">
+        <h2 class="collection-list-title">{{ section.settings.title | escape }} Productos</h2>
+      </div>
+      <ul class="grid product-grid grid--{{ section.product-grid.settings.columns_desktop }}-col-desktop grid--{{ section.settings.columns_mobile }}-col-tablet-down" role="list">
+            {% for product in collections['coleccionprod'].products %}
+            <li class="grid__item">
+                {% for image in product.images %}
+                    <img src="{{ image | image_url: width: 300 }}" alt="{{ product.title }}" loading='lazy' width=300 height=300/>
+                {% endfor %}
+                   <div class="card__information">
+                        <h3 class="card__heading">{{ product.title }}</h3>
+                        <h3 class="card__heading">{{ product.price | money_with_currency  }}</h3>
+                        
+                        
+                      {% for color in product.variants  %}
+                       <fieldset class="js product-form__input">
+                          <input type="radio" id="{{ section.id }}-{{ product.option.position }}-{{ forloop.index0 }}"
+                                    name="{{ product.option.name }}"
+                                    value="{{ value | escape }}"
+                                    form="{{ product.product_form_id }}"
+                                    {% if product.option.selected_value == value %}checked{% endif %}
+                              >
+                            <label>{{color.title}}</label>
+                          <h2> {{settings.color_mapping}}</h2>
+                          {% endfor %}
+                        </fieldset>
+
+                        {% assing colors = settings.color_mapping | split:"," %}
+                        {% for colortemp in colors %}
+                          {% assing color = colortemp | split:":" | last %}
+                        <h3 class="card__heading">{{color }}</h3>
+                        {% endfor %}
+
+                   </div>
+            </li>
+            {% endfor %}
+      </ul>
     </div>
-{% endfor %}
+</div>
+
+
