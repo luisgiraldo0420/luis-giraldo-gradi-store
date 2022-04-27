@@ -37,7 +37,7 @@
                         {% for colortemp in colors %}
                          <fieldset class="js product-form__input">
                           {% assign color = colortemp | split: ":" | last %}
-                          <input type="radio" id="{{ section.id }}-{{ product.option.position }}-{{ forloop.index0 }}"
+                          <input type="radio" id="{{ product.option.position }}-{{ forloop.index0 }}"
                                     name="{{ product.option.name }}"
                                     value="{{ value | escape }}"
                                     form="{{ product.product_form_id }}"
