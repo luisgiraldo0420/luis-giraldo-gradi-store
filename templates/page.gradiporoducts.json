@@ -1,6 +1,6 @@
 {
   "sections": {
-    "product-grid": {
+    "main": {
       "type": "productsgrid",
       "settings": {
         "products_per_page": 12,
