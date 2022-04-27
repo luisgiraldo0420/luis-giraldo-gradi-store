@@ -32,7 +32,10 @@ fetch(window.Shopify.routes.root + 'cart/add.js', {
 })
 .catch((error) => {
   console.error('Error:', error);
-});
+})
+.finally(()=>{
+  window.document.location.href = "https://luis-giraldo-gradi-store.myshopify.com/cart"
+})
 }
 
 
