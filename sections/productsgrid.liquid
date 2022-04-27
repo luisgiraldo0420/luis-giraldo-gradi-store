@@ -48,7 +48,9 @@ fetch(window.Shopify.routes.root + 'cart/add.js', {
             {% for product in collections['coleccionprod'].products %}
             <li class="grid__item">
                 {% for image in product.images %}
+                <a href="{{ product.url }}" class="product__title">
                     <img src="{{ image | image_url: width: 300 }}" alt="{{ product.title }}" loading='lazy' width=300 height=300/>
+                    </a>
                 {% endfor %}
                    <div class="card__information">
                         <h3 class="card__heading">{{ product.title }}</h3>
