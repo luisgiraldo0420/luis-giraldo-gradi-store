@@ -9,6 +9,36 @@
 
 {%- endstyle -%}
 
+<script>
+
+
+const enviar = (id) =>{
+console.log(id, '------');
+let formData = {
+ 'items': [{
+  'id': id,
+  'quantity': 2
+  }]
+};
+fetch(window.Shopify.routes.root + 'cart/add.js', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify(formData)
+})
+.then(response => {
+  return response.json();
+})
+.catch((error) => {
+  console.error('Error:', error);
+});
+}
+
+
+
+</script>
+
 <div class="color-{{ section.settings.color_scheme }} gradient">
     <div class="product-recommendations page-width section-{{ section.id }}-padding isolate" data-url="{{ routes.product_recommendations_url }}?section_id={{ section.id }}&product_id={{ product.id }}&limit={{ section.settings.products_to_show }}">
       <div class="title-wrapper-with-link{% if show_mobile_slider %} title-wrapper--self-padded-tablet-down{% else %} title-wrapper--self-padded-mobile{% endif %} title-wrapper--no-top-margin">
@@ -26,18 +56,38 @@
 
                         {% assign colors = settings.color_mapping | split: "," %}
                         {% for colortemp in colors %}
-                        
                           {% liquid 
                             assign color = colortemp | split: ":" | last 
                             assign nameColor = colortemp | split: ":" | first 
                             %}
                             <input class="inputVariationProduct" type="radio" style="accent-color:{{color}}" checked="checked"/>
-                          
                         {% endfor %}
                    </div>
+                   <div class="product-form__buttons">
+                    <button
+                      type="submit"
+                      name="add"
+                      id="add-product"
+                      onclick=enviar({{product.variants[0].id}})
+                      
+                      class="product-form__submit button button--full-width ">
+                        <span>
+                          {%- if product.selected_or_first_available_variant.available -%}
+                            {{ 'products.product.add_to_cart' | t }}
+                          {%- else -%}
+                            {{ 'products.product.sold_out' | t }}
+                          {%- endif -%}
+                        </span
+                    </button>
+                    {%- if block.settings.show_dynamic_checkout -%}
+                      {{ form | payment_button }}
+                    {%- endif -%}
+                  </div>
             </li>
             {% endfor %}
+            
       </ul>
+      
     </div>
 </div>
 
