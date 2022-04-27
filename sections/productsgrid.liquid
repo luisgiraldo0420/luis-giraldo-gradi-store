@@ -57,14 +57,21 @@ fetch(window.Shopify.routes.root + 'cart/add.js', {
                         <h3 class="card__heading">{{ product.price | money_with_currency  }}</h3>
 
                         {% assign colors = settings.color_mapping | split: "," %}
-                        {% for colortemp in colors %}
-                          {% liquid 
-                            assign color = colortemp | split: ":" | last 
-                            assign nameColor = colortemp | split: ":" | first 
+                        {% for tempColor in colors %}
+                        {% liquid
+                            assign color=tempColor | split: ":" | last
+                        %}
+                        {% for variant in product.variants %}
+                            {% liquid
+                                assign variantColor = variant.option1 
+                                assign colorCustomer=tempColor | split: ":"  | first
                             %}
-                            <input class="inputVariationProduct" type="radio" style="accent-color:{{color}}" checked="checked"/>
+                            {% if  colorCustomer contains variantColor  %}
+                                <input class="input_productgrid" type='radio' style="accent-color:{{ color }}" checked="checked"/>
+                            {% endif %}
                         {% endfor %}
-                        <quantity-input class="quantity">
+                    {% endfor %}
+                        <quantity-input class="quantity mb-5">
                           <button class="quantity__button no-js-hidden" name="minus" type="button">
                             <span class="visually-hidden">{{ 'products.product.quantity.decrease' | t: product: product.title | escape }}</span>
                             {% render 'icon-minus' %}
@@ -89,7 +96,6 @@ fetch(window.Shopify.routes.root + 'cart/add.js', {
                       name="add"
                       id="add-product"
                       onclick=enviar({{product.variants[0].id}})
-                      
                       class="product-form__submit button button--full-width ">
                         <span>
                           {%- if product.selected_or_first_available_variant.available -%}
