@@ -7,9 +7,6 @@
   border: 1px solid black;
   border-radius: 50%;
 }
-.imgProduct:hover {
-  background-color: yellow;
-}
 
 {%- endstyle -%}
 
@@ -44,7 +41,7 @@ fetch(window.Shopify.routes.root + 'cart/add.js', {
 
 function chageImage(color) {
   console.log(color, 'llega-------------');
-document.getElementById("myImg").src = 'http://cdn.shopify.com/s/files/1/0639/6854/2973/products/calzado05.jpg?v=1650992405&width=300';
+document.getElementById("myImg").src = color;
    }
 
 
@@ -61,7 +58,7 @@ document.getElementById("myImg").src = 'http://cdn.shopify.com/s/files/1/0639/68
                 {% for image in product.images %}
                <div class="imgProduct">
                 <a href="{{ product.url }}" class="product__title">
-                  <img src="{{ image | image_url: width: 300 }}" alt="{{ product.title }}" loading='lazy' width=300 height=300 id="myImg"/>
+                  <img src="{{ image | image_url: width: 300  }}" alt="{{ product.title }}" loading='lazy' width=300 height=300 id="myImg"/>
                   </a>
                </div>
                 {% endfor %}
@@ -81,8 +78,8 @@ document.getElementById("myImg").src = 'http://cdn.shopify.com/s/files/1/0639/68
                                 assign colorCustomer=tempColor | split: ":"  | first
                             %}
                             {% if  colorCustomer contains variantColor  %}
-                            <p>{{variant.id[0] | json}}</p>
-                                <input class="input_productgrid" onmouseover="chageImage({{variant.id}})" type='radio' style="accent-color:{{ color }}" checked="checked"/>
+                            <p>{{variant | json}}</p>
+                                <input class="input_productgrid" onmouseover="chageImage({{variant.featured_image.src }})" type='radio' style="accent-color:{{ color }}" checked="checked"/>
                             {% endif %}
                         {% endfor %}
                     {% endfor %}
