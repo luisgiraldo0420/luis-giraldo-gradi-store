@@ -1,0 +1,38 @@
+.inputVariationProduct{
+    width: 20px;
+    height: 20px;
+    border: none;
+    margin-bottom: 10px;
+    border: 1px solid black;
+    border-radius: 50%;
+  }
+  #color{
+    max-width:220px;
+    width:90%;
+    height: 40px;
+  }
+  #color ul li{
+    list-style-type:none;
+    display:inline-block;
+  }
+  label {
+    width: 24px;
+    margin-right:14px;
+  }
+  input.input_productgrid:empty {
+      margin-left: -9999px;
+    display:none;
+  }
+  input.input_productgrid:empty ~ label {
+      position: relative;
+      float: left;
+      line-height: 24px;
+      text-indent: 3.25em;
+      cursor: pointer;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      border-radius: 50%;
+      border: 1px solid black;
+  }

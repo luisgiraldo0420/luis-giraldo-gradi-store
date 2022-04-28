@@ -1,44 +1,6 @@
-{%- style -%}
-.inputVariationProduct{
-  width: 20px;
-  height: 20px;
-  border: none;
-  margin-bottom: 10px;
-  border: 1px solid black;
-  border-radius: 50%;
-}
-#color{
-  max-width:220px;
-  width:90%;
-  height: 40px;
-}
-#color ul li{
-  list-style-type:none;
-  display:inline-block;
-}
-label {
-  width: 24px;
-  margin-right:14px;
-}
-input.input_productgrid:empty {
-    margin-left: -9999px;
-  display:none;
-}
-input.input_productgrid:empty ~ label {
-    position: relative;
-    float: left;
-    line-height: 24px;
-    text-indent: 3.25em;
-    cursor: pointer;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-    border-radius: 50%;
-    border: 1px solid black;
-}
-
-{%- endstyle -%}
+<link rel="stylesheet" href="{{ 'productsgrid.css' | asset_url }}" media="print" onload="this.media='all'">
+<noscript> {{ 'productsgrid.css' | asset_url | stylesheet_tag}} </noscript>
+<script src="{{'productsgrid.js' | asset_url }}" defer></script>
 
 
 <div class="color-{{ section.settings.color_scheme }} gradient">
@@ -153,62 +115,6 @@ input.input_productgrid:empty ~ label {
       
     </div>
 </div>
-
-
-
-
-<script>
-
-
-  const enviar = (id) =>{
-    console.log('llega');
-  let formData = {
-   'items': [{
-    'id': id,
-    'quantity': 2
-    }]
-  };
-  fetch(window.Shopify.routes.root + 'cart/add.js', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(formData)
-  })
-  .then(response => {
-    return response.json();
-  })
-  .catch((error) => {
-    console.error('Error:', error);
-  })
-  .finally(()=>{
-    window.document.location.href = "https://luis-giraldo-gradi-store.myshopify.com/cart"
-  })
-  }
-  
-  
-     let inputs = document.getElementsByClassName("input_productgrid")
-      for(item of inputs) {
-          item.addEventListener("mouseover", function(e) {
-              let image = e.target.getAttribute("image_hover")
-              let imageProduct = document.getElementById(e.target.getAttribute("idImageProd"))
-              imageProduct.setAttribute("src", image)
-          })
-          item.addEventListener("mouseout", function(e) {
-              let imageProduct = document.getElementById(e.target.getAttribute("idImageProd"))
-              let image = imageProduct.getAttribute("defaultImage")
-              imageProduct.setAttribute("src", image)
-          })
-          item.addEventListener("click", function(e) {
-              let image = e.target.getAttribute("image_hover")
-              let imageProduct = document.getElementById(e.target.getAttribute("idImageProd"))
-              imageProduct.setAttribute("src", image);
-              imageProduct.setAttribute("defaultImage", image);
-          })
-      }
-  
-  </script>
-
 
 
 {% schema %}
