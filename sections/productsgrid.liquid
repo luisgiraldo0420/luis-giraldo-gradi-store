@@ -6,6 +6,10 @@
   margin-bottom: 10px;
   border: 1px solid black;
   border-radius: 50%;
+}
+.imgProduct:hover {
+  background-color: yellow;
+}
 
 {%- endstyle -%}
 
@@ -38,6 +42,10 @@ fetch(window.Shopify.routes.root + 'cart/add.js', {
 })
 }
 
+function chageImage(color) {
+  console.log(color, 'llega-------------');
+document.getElementById("myImg").src = 'http://cdn.shopify.com/s/files/1/0639/6854/2973/products/calzado05.jpg?v=1650992405&width=300';
+   }
 
 
 </script>
@@ -51,9 +59,11 @@ fetch(window.Shopify.routes.root + 'cart/add.js', {
             {% for product in collections['coleccionprod'].products %}
             <li class="grid__item">
                 {% for image in product.images %}
+               <div class="imgProduct">
                 <a href="{{ product.url }}" class="product__title">
-                    <img src="{{ image | image_url: width: 300 }}" alt="{{ product.title }}" loading='lazy' width=300 height=300/>
-                    </a>
+                  <img src="{{ image | image_url: width: 300 }}" alt="{{ product.title }}" loading='lazy' width=300 height=300 id="myImg"/>
+                  </a>
+               </div>
                 {% endfor %}
                    <div class="card__information">
                         <h3 class="card__heading">{{ product.title }}</h3>
@@ -65,12 +75,14 @@ fetch(window.Shopify.routes.root + 'cart/add.js', {
                             assign color=tempColor | split: ":" | last
                         %}
                         {% for variant in product.variants %}
+                       
                             {% liquid
                                 assign variantColor = variant.option1 
                                 assign colorCustomer=tempColor | split: ":"  | first
                             %}
                             {% if  colorCustomer contains variantColor  %}
-                                <input class="input_productgrid" type='radio' style="accent-color:{{ color }}" checked="checked"/>
+                            <p>{{variant.id[0] | json}}</p>
+                                <input class="input_productgrid" onmouseover="chageImage({{variant.id}})" type='radio' style="accent-color:{{ color }}" checked="checked"/>
                             {% endif %}
                         {% endfor %}
                     {% endfor %}
@@ -119,5 +131,6 @@ fetch(window.Shopify.routes.root + 'cart/add.js', {
       
     </div>
 </div>
+
 
 
