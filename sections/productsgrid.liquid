@@ -10,42 +10,6 @@
 
 {%- endstyle -%}
 
-<script>
-
-
-const enviar = (id) =>{
-console.log(id, '------');
-let formData = {
- 'items': [{
-  'id': id,
-  'quantity': 2
-  }]
-};
-fetch(window.Shopify.routes.root + 'cart/add.js', {
-  method: 'POST',
-  headers: {
-    'Content-Type': 'application/json'
-  },
-  body: JSON.stringify(formData)
-})
-.then(response => {
-  return response.json();
-})
-.catch((error) => {
-  console.error('Error:', error);
-})
-.finally(()=>{
-  window.document.location.href = "https://luis-giraldo-gradi-store.myshopify.com/cart"
-})
-}
-
-function chageImage(color) {
-  console.log(color, 'llega-------------');
-document.getElementById("myImg").src = color;
-   }
-
-
-</script>
 
 <div class="color-{{ section.settings.color_scheme }} gradient">
     <div class="product-recommendations page-width section-{{ section.id }}-padding isolate" data-url="{{ routes.product_recommendations_url }}?section_id={{ section.id }}&product_id={{ product.id }}&limit={{ section.settings.products_to_show }}">
@@ -55,13 +19,9 @@ document.getElementById("myImg").src = color;
       <ul class="grid product-grid grid--{{ section.product-grid.settings.columns_desktop }}-col-desktop grid--{{ section.settings.columns_mobile }}-col-tablet-down" role="list">
             {% for product in collections['coleccionprod'].products %}
             <li class="grid__item">
-                {% for image in product.images %}
-               <div class="imgProduct">
                 <a href="{{ product.url }}" class="product__title">
-                  <img src="{{ image | image_url: width: 300  }}" alt="{{ product.title }}" loading='lazy' width=300 height=300 id="myImg"/>
+                  <img id="product_image-{{product.url}}" src="{{ product.images | first | image_url: width: 300  }}" alt="{{ product.title }}" loading='lazy' width=300 height=300/>
                   </a>
-               </div>
-                {% endfor %}
                    <div class="card__information">
                         <h3 class="card__heading">{{ product.title }}</h3>
                         <h3 class="card__heading">{{ product.price | money_with_currency  }}</h3>
@@ -80,10 +40,15 @@ document.getElementById("myImg").src = color;
                             {% if  colorCustomer contains variantColor  %}
                            
                            {% liquid
-                            assign urlImg = variant.featured_image | json
+                            assign urlImg = variant | json
                         %}
-                        <p>{{urlImg}}</p>
-                                <input class="input_productgrid" onmouseover="chageImage({{urlImg.src }})" type='radio' style="accent-color:{{ color }}" checked="checked"/>
+                                <input class="input_productgrid" 
+                                type='radio'
+                                defaultImage="{{product.images | first | image_url: width: 300}}" 
+                                idImageProd="product_image-{{product.url}}"
+                                image_hover="{{variant | image_url}}"
+                                style="accent-color:{{ color }}" 
+                                checked="checked"/>
                             {% endif %}
                         {% endfor %}
                     {% endfor %}
@@ -135,3 +100,49 @@ document.getElementById("myImg").src = color;
 
 
 
+
+<script>
+
+
+  const enviar = (id) =>{
+  console.log(id, '------');
+  let formData = {
+   'items': [{
+    'id': id,
+    'quantity': 2
+    }]
+  };
+  fetch(window.Shopify.routes.root + 'cart/add.js', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(formData)
+  })
+  .then(response => {
+    return response.json();
+  })
+  .catch((error) => {
+    console.error('Error:', error);
+  })
+  .finally(()=>{
+    window.document.location.href = "https://luis-giraldo-gradi-store.myshopify.com/cart"
+  })
+  }
+  
+  
+     let inputs = document.getElementsByClassName("input_productgrid")
+      for(item of inputs) {
+          item.addEventListener("mouseover", function(e) {
+              let image = e.target.getAttribute("image_hover")
+              let imageProduct = document.getElementById(e.target.getAttribute("idImageProd"))
+              imageProduct.setAttribute("src", image)
+          })
+          item.addEventListener("mouseout", function(e) {
+              let image = e.target.getAttribute("defaultImage")
+              let imageProduct = document.getElementById(e.target.getAttribute("idImageProd"))
+              imageProduct.setAttribute("src", image)
+          })
+      }
+  
+  </script>
