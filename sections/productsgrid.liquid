@@ -78,8 +78,12 @@ document.getElementById("myImg").src = color;
                                 assign colorCustomer=tempColor | split: ":"  | first
                             %}
                             {% if  colorCustomer contains variantColor  %}
-                            <p>{{variant | json}}</p>
-                                <input class="input_productgrid" onmouseover="chageImage({{variant.featured_image.src }})" type='radio' style="accent-color:{{ color }}" checked="checked"/>
+                           
+                           {% liquid
+                            assign urlImg = variant.featured_image | json
+                        %}
+                        <p>{{urlImg}}</p>
+                                <input class="input_productgrid" onmouseover="chageImage({{urlImg }})" type='radio' style="accent-color:{{ color }}" checked="checked"/>
                             {% endif %}
                         {% endfor %}
                     {% endfor %}
