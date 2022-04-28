@@ -83,7 +83,7 @@ document.getElementById("myImg").src = color;
                             assign urlImg = variant.featured_image | json
                         %}
                         <p>{{urlImg}}</p>
-                                <input class="input_productgrid" onmouseover="chageImage({{urlImg }})" type='radio' style="accent-color:{{ color }}" checked="checked"/>
+                                <input class="input_productgrid" onmouseover="chageImage({{urlImg.src }})" type='radio' style="accent-color:{{ color }}" checked="checked"/>
                             {% endif %}
                         {% endfor %}
                     {% endfor %}
