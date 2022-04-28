@@ -7,6 +7,50 @@
   border: 1px solid black;
   border-radius: 50%;
 }
+#color{
+  max-width:220px;
+  width:90%;
+}
+#color ul li{
+  list-style-type:none;
+  display:inline-block;
+}
+label {
+  width: 24px;
+  margin-right:14px;
+}
+input.input_productgrid:empty {
+    margin-left: -9999px;
+  display:none;
+}
+input.input_productgrid:empty ~ label {
+    position: relative;
+    float: left;
+    line-height: 24px;
+    text-indent: 3.25em;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    border-radius: 50%;
+    border: 1px solid black;
+}
+
+
+input.input_productgrid:checked ~ label:before {
+    content:'';
+}
+input ~ label:before {
+    background-color: red;
+  margin-left:2px;
+}
+
+label:before {
+  -webkit-box-shadow: 0px 0px 0px 1px red;
+-moz-box-shadow: 0px 0px 0px 1px red;
+box-shadow: 0px 0px 0px 1px red;
+}
 
 {%- endstyle -%}
 
@@ -31,32 +75,52 @@
                    <div class="card__information">
                         <h3 class="card__heading">{{ product.title }}</h3>
                         <h3 class="card__heading">{{ product.price | money_with_currency  }}</h3>
-
-                        {% assign colors = settings.color_mapping | split: "," %}
-                        {% for tempColor in colors %}
-                        {% liquid
-                            assign color=tempColor | split: ":" | last
-                        %}
-                        {% for variant in product.variants %}
-                       
-                            {% liquid
-                                assign variantColor = variant.option1 
-                                assign colorCustomer=tempColor | split: ":"  | first
-                            %}
-                            {% if  colorCustomer contains variantColor  %}
-                           
-                           {% liquid
-                            assign urlImg = variant | json
-                        %}
-                                <input class="input_productgrid" 
-                                type='radio'
-                                idImageProd="product_image-{{product.url}}"
-                                image_hover="{{variant | image_url}}"
-                                style="accent-color:{{ color }}" 
-                                checked="checked"/>
+                        <div class="container">
+                          {% assign colors_list = section.settings.colors | newline_to_br | split: '<br />' %}
+                          <style>
+                            {%- for color in colors_list -%}
+                            {%- assign css = color | split: '|' -%}
+                              .color_{{ css[0] | handle }} { background: {{css[1]}} }
+                             /*  {%- comment -%}In this example I'm using background, you can use whatever you want{%- endcomment -%} */
+                            {%- endfor -%}
+                          </style>
+                          {% for product_option in product.options_with_values %}
+                            <p>{{ product_option.name }}:</p>
+                            {% if product_option.name == 'Color' or product_option.name == 'Colour' %}
+                              <div>
+                                {% for value in product_option.values %}
+                                {% liquid
+                                  assign currentPosition=forloop.index | minus: 1
+                                  assign variant=product.variants[currentPosition] 
+                              %}
+                              <div id="color" class="wrapper">
+                                <input 
+                                class="input_productgrid" 
+                                 idImageProd="product_image-{{product.url}}"
+                                 image_hover="{{variant | image_url}}"
+                                type="radio" value="{{ value | handle }}" {% if product_option.selected_value == value %}checked{% endif %}>
+                                <label for="{{ value | handle }}" class="color_{{ value | handle }} input_productgrid" idImageProd="product_image-{{product.url}}"
+                                image_hover="{{variant | image_url}}">&nbsp;</label>
+                              </div>
+                              
+                                 
+                                    
+                                  
+                               
+                                {%- endfor -%}
+                              </div>
+                            {% else %}
+                              <select class=" select__select">
+                                {% for value in product_option.values %}
+                                  <option {% if product_option.selected_value == value %}selected{% endif %}>
+                                    {{ value }}
+                                  </option>
+                                {% endfor %}
+                              </select>
                             {% endif %}
-                        {% endfor %}
-                    {% endfor %}
+                          {% endfor %}
+                                            </div>
+                       
                         <quantity-input class="quantity mb-5">
                           <button class="quantity__button no-js-hidden" name="minus" type="button">
                             <span class="visually-hidden">{{ 'products.product.quantity.decrease' | t: product: product.title | escape }}</span>
@@ -75,7 +139,9 @@
                             {% render 'icon-plus' %}
                           </button>
                         </quantity-input>
-                   </div>
+
+
+              
                    <div class="product-form__buttons">
                      {% assign variant = product.variants[0] | json %}
                     <button
@@ -140,6 +206,7 @@
      let inputs = document.getElementsByClassName("input_productgrid")
       for(item of inputs) {
           item.addEventListener("mouseover", function(e) {
+            alert('llega');
               let image = e.target.getAttribute("image_hover")
               let imageProduct = document.getElementById(e.target.getAttribute("idImageProd"))
               imageProduct.setAttribute("src", image)
@@ -161,3 +228,16 @@
 
 
 
+{% schema %}
+  {
+    "name": "Product Section",
+    "settings": [
+      {
+        "type": "textarea",
+        "id": "colors",
+        "label": "Colors Mapping",
+        "default": "Green|#088A08\nRed|#FF0000\nBlue|#0000FF\nBlack|#000000\nYellow|#FFFF00\nGrey|#848484\nBrown|#3A2F0B\nWhite|#FFFFFF|\nOrange|#FF8000"
+      }
+    ]
+  }
+{% endschema %}
