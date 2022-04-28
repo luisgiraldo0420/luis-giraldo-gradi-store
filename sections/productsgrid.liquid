@@ -10,6 +10,7 @@
 #color{
   max-width:220px;
   width:90%;
+  height: 40px;
 }
 #color ul li{
   list-style-type:none;
@@ -35,21 +36,6 @@ input.input_productgrid:empty ~ label {
     user-select: none;
     border-radius: 50%;
     border: 1px solid black;
-}
-
-
-input.input_productgrid:checked ~ label:before {
-    content:'';
-}
-input ~ label:before {
-    background-color: red;
-  margin-left:2px;
-}
-
-label:before {
-  -webkit-box-shadow: 0px 0px 0px 1px red;
--moz-box-shadow: 0px 0px 0px 1px red;
-box-shadow: 0px 0px 0px 1px red;
 }
 
 {%- endstyle -%}
@@ -87,26 +73,24 @@ box-shadow: 0px 0px 0px 1px red;
                           {% for product_option in product.options_with_values %}
                             <p>{{ product_option.name }}:</p>
                             {% if product_option.name == 'Color' or product_option.name == 'Colour' %}
-                              <div>
+                              <div id="color" class="wrapper">
                                 {% for value in product_option.values %}
                                 {% liquid
                                   assign currentPosition=forloop.index | minus: 1
                                   assign variant=product.variants[currentPosition] 
                               %}
-                              <div id="color" class="wrapper">
+                              <!-- <div id="color" class="wrapper"> -->
                                 <input 
                                 class="input_productgrid" 
                                  idImageProd="product_image-{{product.url}}"
                                  image_hover="{{variant | image_url}}"
                                 type="radio" value="{{ value | handle }}" {% if product_option.selected_value == value %}checked{% endif %}>
-                                <label for="{{ value | handle }}" class="color_{{ value | handle }} input_productgrid" idImageProd="product_image-{{product.url}}"
+                                <label 
+                                for="{{ value | handle }}" 
+                                class="color_{{ value | handle }} input_productgrid" 
+                                idImageProd="product_image-{{product.url}}"
                                 image_hover="{{variant | image_url}}">&nbsp;</label>
-                              </div>
-                              
-                                 
-                                    
-                                  
-                               
+                             <!--  </div> -->
                                 {%- endfor -%}
                               </div>
                             {% else %}
@@ -206,7 +190,6 @@ box-shadow: 0px 0px 0px 1px red;
      let inputs = document.getElementsByClassName("input_productgrid")
       for(item of inputs) {
           item.addEventListener("mouseover", function(e) {
-            alert('llega');
               let image = e.target.getAttribute("image_hover")
               let imageProduct = document.getElementById(e.target.getAttribute("idImageProd"))
               imageProduct.setAttribute("src", image)
