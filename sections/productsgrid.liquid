@@ -20,7 +20,13 @@
             {% for product in collections['coleccionprod'].products %}
             <li class="grid__item">
                 <a href="{{ product.url }}" class="product__title">
-                  <img id="product_image-{{product.url}}" src="{{ product.images | first | image_url: width: 300  }}" alt="{{ product.title }}" loading='lazy' width=300 height=300/>
+                  <img id="product_image-{{product.url}}" 
+                  src="{{ product.images | first | image_url: width: 300  }}" 
+                  alt="{{ product.title }}" l
+                  oading='lazy' 
+                  width=300 
+                  height=300
+                  defaultImage="{{product.images | first | image_url: width: 300}}" />
                   </a>
                    <div class="card__information">
                         <h3 class="card__heading">{{ product.title }}</h3>
@@ -44,7 +50,6 @@
                         %}
                                 <input class="input_productgrid" 
                                 type='radio'
-                                defaultImage="{{product.images | first | image_url: width: 300}}" 
                                 idImageProd="product_image-{{product.url}}"
                                 image_hover="{{variant | image_url}}"
                                 style="accent-color:{{ color }}" 
@@ -72,11 +77,12 @@
                         </quantity-input>
                    </div>
                    <div class="product-form__buttons">
+                     {% assign variant = product.variants[0] | json %}
                     <button
                       type="submit"
                       name="add"
                       id="add-product"
-                      onclick=enviar({{product.variants[0].id}})
+                      onclick=enviar({{variant}})
                       class="product-form__submit button button--full-width ">
                         <span>
                           {%- if product.selected_or_first_available_variant.available -%}
@@ -105,7 +111,7 @@
 
 
   const enviar = (id) =>{
-  console.log(id, '------');
+    console.log('llega');
   let formData = {
    'items': [{
     'id': id,
@@ -139,10 +145,19 @@
               imageProduct.setAttribute("src", image)
           })
           item.addEventListener("mouseout", function(e) {
-              let image = e.target.getAttribute("defaultImage")
               let imageProduct = document.getElementById(e.target.getAttribute("idImageProd"))
+              let image = imageProduct.getAttribute("defaultImage")
               imageProduct.setAttribute("src", image)
+          })
+          item.addEventListener("click", function(e) {
+              let image = e.target.getAttribute("image_hover")
+              let imageProduct = document.getElementById(e.target.getAttribute("idImageProd"))
+              imageProduct.setAttribute("src", image);
+              imageProduct.setAttribute("defaultImage", image);
           })
       }
   
   </script>
+
+
+
