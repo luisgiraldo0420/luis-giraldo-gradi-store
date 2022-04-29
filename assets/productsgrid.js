@@ -33,7 +33,8 @@ const addToCart= (button) => {
                 id:undefined,
                 quantity:1,
             };
-            window.top.location.href = "/cart"
+           minicartHiddenShow();
+            //window.top.location.href = "/cart"
         });
     }else {
        alert('Ups... al parecer no has elegido un color')

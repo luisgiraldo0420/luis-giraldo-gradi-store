@@ -4,7 +4,7 @@
 
 
 <div class="color-{{ section.settings.color_scheme }} gradient">
-    <div class="product-recommendations page-width section-{{ section.id }}-padding isolate" data-url="{{ routes.product_recommendations_url }}?section_id={{ section.id }}&product_id={{ product.id }}&limit={{ section.settings.products_to_show }}">
+    <div class="product-recommendations page-width limit={{ section.settings.products_to_show }}">
          <div class="title-wrapper-with-link{% if show_mobile_slider %} title-wrapper--self-padded-tablet-down{% else %} title-wrapper--self-padded-mobile{% endif %} title-wrapper--no-top-margin">
           <h2 class="collection-list-title">{{ section.settings.title | escape }}  {{ 'products.product.section_title' | t }}</h2>
         </div> 

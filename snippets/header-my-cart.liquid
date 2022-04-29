@@ -1,3 +1,9 @@
 <div class="mini-cart__head">
+    <button class="quantity__button no-js-hidden" name="plus" type="button"  onclick="minicartHiddenShow()">
+        <span class="visually-hidden">{{ 'products.product.quantity.increase' | t: product: item.product.title | escape }}</span>
+        {% render 'icon-hamburger' %}
+      </button>
     <h3 class="mini-cart__title"> {{ 'sections.cart.title' | t }}</h3>
-  </div>
+    
+   
+</div>

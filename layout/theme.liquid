@@ -209,6 +209,8 @@
       document.documentElement.classList.add('shopify-design-mode');
     }
     </script>
+    <script src="{{ 'minicart.js' | asset_url }}" defer="defer"></script>
+    
   </head>
 
   <body class="gradient">
@@ -216,13 +218,12 @@
       {{ "accessibility.skip_to_text" | t }}
     </a>
 <div class="my-container">
-  <div class="my-container_content">
+  <div class="my-container_content" id="container_content">
     {% section 'announcement-bar' %}
     {% section 'header' %}
     <main id="MainContent" class="content-for-layout focus-none" role="main" tabindex="-1">
       {{ content_for_layout }}
     </main>
-
     {% section 'footer' %}
   </div>
   <div class="my_container-cart">
