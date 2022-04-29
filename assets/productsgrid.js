@@ -37,6 +37,8 @@ const addToCart= (button) => {
             };
             window.top.location.href = "/cart"
         });
+    }else {
+       alert('Ups... al parecer no has elegido un color')
     }
 }
 const buttonsAdd=document.getElementsByClassName('button_productgrid')
