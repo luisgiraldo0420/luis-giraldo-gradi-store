@@ -107,6 +107,7 @@
       "description": "Descripción",
       "on_sale": "Oferta",
       "product_variants": "Variantes de producto",
+      "section_title": "Productos",
       "quantity": {
         "label": "Cantidad",
         "input_label": "Cantidad para {{ product }}",

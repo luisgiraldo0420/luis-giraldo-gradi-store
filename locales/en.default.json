@@ -116,7 +116,9 @@
         "image_available": "Image {{ index }} is now available in gallery view",
         "open_media": "Open media {{ index }} in modal",
         "play_model": "Play 3D Viewer",
-        "play_video": "Play video"
+        "play_video": "Play video",
+        "section_title": "Products"
+        
       },
       "quantity": {
         "label": "Quantity",

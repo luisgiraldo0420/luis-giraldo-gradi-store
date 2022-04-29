@@ -5,12 +5,12 @@
 
 <div class="color-{{ section.settings.color_scheme }} gradient">
     <div class="product-recommendations page-width section-{{ section.id }}-padding isolate" data-url="{{ routes.product_recommendations_url }}?section_id={{ section.id }}&product_id={{ product.id }}&limit={{ section.settings.products_to_show }}">
-      <div class="title-wrapper-with-link{% if show_mobile_slider %} title-wrapper--self-padded-tablet-down{% else %} title-wrapper--self-padded-mobile{% endif %} title-wrapper--no-top-margin">
-        <h2 class="collection-list-title">{{ section.settings.title | escape }} Productos</h2>
-      </div>
-      <ul class="grid product-grid grid--{{ section.product-grid.settings.columns_desktop }}-col-desktop grid--{{ section.settings.columns_mobile }}-col-tablet-down" role="list">
+         <div class="title-wrapper-with-link{% if show_mobile_slider %} title-wrapper--self-padded-tablet-down{% else %} title-wrapper--self-padded-mobile{% endif %} title-wrapper--no-top-margin">
+          <h2 class="collection-list-title">{{ section.settings.title | escape }}  {{ 'products.product.section_title' | t }}</h2>
+        </div> 
+        <ul class="grid product-grid grid--{{ section.product-grid.settings.columns_desktop }}-col-desktop grid--{{ section.settings.columns_mobile }}-col-tablet-down" role="list">
             {% for product in collections['coleccionprod'].products %}
-            <li class="grid__item">
+            <li class="collection-list__item grid__item">
                 <a href="{{ product.url }}" class="product__title">
                   <img id="product_image-{{product.url}}" 
                   src="{{ product.images | first | image_url: width: 300  }}" 
@@ -19,55 +19,51 @@
                   width=300 
                   height=300
                   defaultImage="{{product.images | first | image_url: width: 300}}" />
-                  </a>
+                </a>
                    <div class="card__information">
                         <h3 class="card__heading">{{ product.title }}</h3>
                         <h3 class="card__heading">{{ product.price | money_with_currency  }}</h3>
                         <div class="container_input">
-                          {% assign colors_list = section.settings.colors | newline_to_br | split: '<br />' %}
-                          <style>
-                            {%- for color in colors_list -%}
-                            {%- assign css = color | split: '|' -%}
-                              .color_{{ css[0] | handle }} { background: {{css[1]}} }
-                             /*  {%- comment -%}In this example I'm using background, you can use whatever you want{%- endcomment -%} */
-                            {%- endfor -%}
-                          </style>
-                          {% for product_option in product.options_with_values %}
+                            {% assign colors_list = section.settings.colors | newline_to_br | split: '<br />' %}
+                            <style>
+                              {%- for color in colors_list -%}
+                              {%- assign css = color | split: '|' -%}
+                                .color_{{ css[0] | handle }} { background: {{css[1]}} }
+                              /*  {%- comment -%}In this example I'm using background, you can use whatever you want{%- endcomment -%} */
+                              {%- endfor -%}
+                            </style>
+                            {% for product_option in product.options_with_values %}
                             <p>{{ product_option.name }}:</p>
                             {% if product_option.name == 'Color' or product_option.name == 'Colour' %}
                               <div id="color" class="wrapper">
                                 {% for value in product_option.values %}
-                                {% liquid
-                                  assign currentPosition=forloop.index | minus: 1
-                                  assign variant=product.variants[currentPosition]
+                                  {% liquid
+                                    assign currentPosition=forloop.index | minus: 1
+                                    assign variant=product.variants[currentPosition]
+                                    
+                                  %}
                                   
-                              %}
-                                <input 
-                                class="input_productgrid" 
-                                id="{{ variant.id }}"
-                                onclick='updateProduct(this)'
-                                idImageProd="product_image-{{product.url}}"
-                                image_hover="{{variant | image_url}}"
-                                value="{{ value | handle }}"
-                                type="radio"
-                                {% if product_option.selected_value == value %}checked{% endif %}>
-                                <label 
-                                for="{{ value | handle }}" 
-                                id="{{ variant.id }}"
-                                disponible="{{variant.available}}"
-                                value="{{ value | handle }}"
-                                class="color_{{ value | handle }} input_productgrid" 
-                                onclick=updateProduct(this)
-                                idImageProd="product_image-{{product.url}}"
-                                image_hover="{{variant | image_url}}">&nbsp;</label>
+                                  <input 
+                                  class="input_productgrid" 
+                                  type="radio"
+                                  {% if product_option.selected_value == value %}checked{% endif %}>
+                                  <label 
+                                  for="{{ value | handle }}" 
+                                  id="{{ variant.id }}"
+                                  disponible="{{variant.available}}"
+                                  value="{{ value | handle }}"
+                                  class="color_{{ value | handle }} input_productgrid" 
+                                  onclick=updateProduct(this)
+                                  idImageProd="product_image-{{product.url}}"
+                                  image_hover="{{variant | image_url}}">&nbsp;</label>
                                 {%- endfor -%}
                               </div>
                             {% else %}
                               <select class=" select__select">
                                 {% for value in product_option.values %}
-                                  <option {% if product_option.selected_value == value %}selected{% endif %}>
-                                    {{ value }}
-                                  </option>
+                                    <option {% if product_option.selected_value == value %}selected{% endif %}>
+                                      {{ value }}
+                                    </option>
                                 {% endfor %}
                               </select>
                             {% endif %}
@@ -115,11 +111,10 @@
                   </div>
             </li>
             {% endfor %}
-            
-      </ul>
-      
+        </ul>   
     </div>
 </div>
+
 
 
 {% schema %}

@@ -36,3 +36,10 @@
       border-radius: 50%;
       border: 1px solid black;
   }
+  
+  .container_quantity{
+      margin-bottom: 10px;
+  }
+  input.input_productgrid:empty ~ label:hover {
+    border: 2px solid black;
+  }
