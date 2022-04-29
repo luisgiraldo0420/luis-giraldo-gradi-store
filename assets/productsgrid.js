@@ -3,19 +3,19 @@ let products={
     quantity:1,
 };
 const updateProduct=(variant)=>{
-   
-   console.log(variant.disponible);
-            products.id=variant.id
-     
+    let disponible = variant.getAttribute("disponible");
+    console.log(disponible);
+    if(disponible == false){
+        alert('Ups... al parecer esta referencia no tiene stock disponible')
+    }else{
+        products.id=variant.id
+    }
    
 }
 const updateQuantity=(quantity)=>{
-
     products.quantity=quantity;
 }
 const addToCart= (button) => {
-    
-
     const quantity=document.getElementById(`quantity__input-${button.id}`)
     updateQuantity(quantity.value);
 

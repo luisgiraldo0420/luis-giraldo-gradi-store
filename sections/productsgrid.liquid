@@ -40,11 +40,12 @@
                                 {% liquid
                                   assign currentPosition=forloop.index | minus: 1
                                   assign variant=product.variants[currentPosition]
+                                  
                               %}
+                              <p>{{variant.available}}</p>
                                 <input 
                                 class="input_productgrid" 
                                 id="{{ variant.id }}"
-                                disponible="{{variant.available}}"
                                 onclick='updateProduct(this)'
                                 idImageProd="product_image-{{product.url}}"
                                 image_hover="{{variant | image_url}}"
@@ -53,8 +54,8 @@
                                 {% if product_option.selected_value == value %}checked{% endif %}>
                                 <label 
                                 for="{{ value | handle }}" 
-                                disponible="{{variant.available}}"
                                 id="{{ variant.id }}"
+                                disponible="{{variant.available}}"
                                 value="{{ value | handle }}"
                                 class="color_{{ value | handle }} input_productgrid" 
                                 onclick=updateProduct(this)
