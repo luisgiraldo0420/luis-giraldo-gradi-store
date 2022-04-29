@@ -1,10 +1,8 @@
 <link rel="stylesheet" href="{{ 'productsgrid.css' | asset_url }}" media="print" onload="this.media='all'">
 <noscript> {{ 'productsgrid.css' | asset_url | stylesheet_tag}} </noscript>
-<script src="{{'productsgrid.js' | asset_url }}" defer="defer"></script>
+<script src="{{'productsgrid.js' | asset_url }}" defer></script>
 
-<div class="product product--{{ section.settings.media_size }} product--{{ section.settings.gallery_layout }} grid grid--1-col {% if product.media.size > 0 %}grid--2-col-tablet{% else %}product--no-media{% endif %}">
-  <div class="grid__item product__media-wrapper">
-   
+
 <div class="color-{{ section.settings.color_scheme }} gradient">
     <div class="product-recommendations page-width section-{{ section.id }}-padding isolate" data-url="{{ routes.product_recommendations_url }}?section_id={{ section.id }}&product_id={{ product.id }}&limit={{ section.settings.products_to_show }}">
       <div class="title-wrapper-with-link{% if show_mobile_slider %} title-wrapper--self-padded-tablet-down{% else %} title-wrapper--self-padded-mobile{% endif %} title-wrapper--no-top-margin">
@@ -40,10 +38,10 @@
                               <div id="color" class="wrapper">
                                 {% for value in product_option.values %}
                                 {% liquid
-                                    assign currentPosition=forloop.index | minus: 1
-                                    assign variant=product.variants[currentPosition]
-                                %}
-                                <input type="radio" name="txt" value="1" onchange=updateProduct(this)>
+                                  assign currentPosition=forloop.index | minus: 1
+                                  assign variant=product.variants[currentPosition]
+                              %}
+                              <p>{{variant}}</p>
                                 <input 
                                 class="input_productgrid" 
                                 id="{{ variant.id }}"
@@ -54,10 +52,13 @@
                                 type="radio"
                                 {% if product_option.selected_value == value %}checked{% endif %}>
                                 <label 
-                                onchange=updateProduct(this)
                                 for="{{ value | handle }}" 
-                                class="color_{{ value | handle }}" 
-                               >&nbsp;</label>
+                                id="{{ variant.id }}"
+                                value="{{ value | handle }}"
+                                class="color_{{ value | handle }} input_productgrid" 
+                                onchange=updateProduct(this)
+                                idImageProd="product_image-{{product.url}}"
+                                image_hover="{{variant | image_url}}">&nbsp;</label>
                                 {%- endfor -%}
                               </div>
                             {% else %}
@@ -90,28 +91,27 @@
                                 {% render 'icon-plus' %}
                               </button>
                           </quantity-input>
-                          <div class="product-form__buttons">
-                            {% assign variant = product.variants[0] | json %}
-                           <button
-                             id="{{product.id}}"
-                             onclick=addToCart(this)
-                             class="product-form__submit button button--full-width button_productgrid">
-                               <span>
-                                 {%- if product.selected_or_first_available_variant.available -%}
-                                   {{ 'products.product.add_to_cart' | t }}
-                                 {%- else -%}
-                                   {{ 'products.product.sold_out' | t }}
-                                 {%- endif -%}
-                               </span
-                           </button>
-                           {%- if block.settings.show_dynamic_checkout -%}
-                             {{ form | payment_button }}
-                           {%- endif -%}
-                         </div>
                       </div>
 
               
-                  
+                   <div class="product-form__buttons">
+                     {% assign variant = product.variants[0] | json %}
+                    <button
+                      id="{{product.id}}"
+                      onclick=addToCart(this)
+                      class="product-form__submit button button--full-width button_productgrid">
+                        <span>
+                          {%- if product.selected_or_first_available_variant.available -%}
+                            {{ 'products.product.add_to_cart' | t }}
+                          {%- else -%}
+                            {{ 'products.product.sold_out' | t }}
+                          {%- endif -%}
+                        </span
+                    </button>
+                    {%- if block.settings.show_dynamic_checkout -%}
+                      {{ form | payment_button }}
+                    {%- endif -%}
+                  </div>
             </li>
             {% endfor %}
             
@@ -119,8 +119,7 @@
       
     </div>
 </div>
-</div>
-</div>
+
 
 {% schema %}
   {
@@ -135,11 +134,3 @@
     ]
   }
 {% endschema %}
-
-
-<script>
-  const updateProduct=(variant)=>{
-    alert(variant.id);
-    products.id=variant.id
-}
-</script>
