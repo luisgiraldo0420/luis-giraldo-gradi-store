@@ -41,15 +41,7 @@
                                   assign currentPosition=forloop.index | minus: 1
                                   assign variant=product.variants[currentPosition]
                               %}
-                               
-                                <label 
-                                for="{{ value | handle }}" 
-                                id="{{ variant.id }}"
-                                value="{{ value | handle }}"
-                                class="color_{{ value | handle }} input_productgrid" 
-                                onclick=updateProduct(this)
-                                idImageProd="product_image-{{product.url}}"
-                                image_hover="{{variant | image_url}}"> <input 
+                                <input 
                                 class="input_productgrid" 
                                 id="{{ variant.id }}"
                                 onclick=updateProduct(this)
@@ -57,7 +49,15 @@
                                 image_hover="{{variant | image_url}}"
                                 value="{{ value | handle }}"
                                 type="radio"
-                                {% if product_option.selected_value == value %}checked{% endif %}></label>
+                                {% if product_option.selected_value == value %}checked{% endif %}>
+                                <label 
+                                for="{{ value | handle }}" 
+                                id="{{ variant.id }}"
+                                value="{{ value | handle }}"
+                                class="color_{{ value | handle }} input_productgrid" 
+                                onclick=updateProduct(this)
+                                idImageProd="product_image-{{product.url}}"
+                                image_hover="{{variant | image_url}}">&nbsp;</label>
                                 {%- endfor -%}
                               </div>
                             {% else %}
