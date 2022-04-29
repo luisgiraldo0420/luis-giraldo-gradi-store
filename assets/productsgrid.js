@@ -4,8 +4,7 @@ let products={
 };
 const updateProduct=(variant)=>{
     let disponible = variant.getAttribute("disponible");
-    console.log(disponible);
-    if(disponible == false){
+    if(disponible == "false"){
         alert('Ups... al parecer esta referencia no tiene stock disponible')
     }else{
         products.id=variant.id
