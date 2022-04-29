@@ -2,7 +2,10 @@ let products={
     id:undefined,
     quantity:1,
 };
-
+const updateProduct=(variant)=>{
+    alert(variant.id);
+    products.id=variant.id
+}
 const updateQuantity=(quantity)=>{
 
     products.quantity=quantity;
