@@ -1,0 +1,15 @@
+{% for item in cart.items %}
+<div class="mini-cart-item">
+    <div>
+    <img src="{{ item.image | image_url: width: 100  }}">
+    </div>
+    <div>
+    <p>{{ item.title }}</p>
+    </div>
+    <div>
+    <p>Price: {{ item.final_price | money }}<br></p>
+        <i class="fa fa-trash-o"></i>
+    </div>
+</div>
+<hr class="separator"/>
+{% endfor %}

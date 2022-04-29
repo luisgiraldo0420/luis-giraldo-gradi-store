@@ -1,0 +1,19 @@
+
+
+<div class="my-cart" data-ajax-cart-section>
+    {% render 'header-my-cart' %}
+    <div class="mini-shopping-cart">
+    {% render 'products-minicart' %}
+    </div>
+    <button type="submit" id="checkout" class="cart__checkout-button button" name="checkout"{% if cart == empty %} disabled{% endif %} form="cart">
+        {{ 'sections.cart.checkout' | t }}
+      </button>
+  </div>
+
+
+{% schema %}
+{
+    "name": "my cart", 
+    "settings": []
+}
+{% endschema %}

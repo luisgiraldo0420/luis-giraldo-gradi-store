@@ -4,12 +4,7 @@ let products={
 };
 const updateProduct=(variant)=>{
     let disponible = variant.getAttribute("disponible");
-    if(disponible == "false"){
-        alert('Ups... al parecer esta referencia no tiene stock disponible')
-    }else{
-        products.id=variant.id
-    }
-   
+    disponible ? products.id=variant.id : alert('Ups... al parecer esta referencia no tiene stock disponible')
 }
 const updateQuantity=(quantity)=>{
     products.quantity=quantity;
@@ -63,11 +58,7 @@ for(item of inputs) {
     item.addEventListener("click", function(e) {
         let image = e.target.getAttribute("image_hover")
         let imageProduct = document.getElementById(e.target.getAttribute("idImageProd"))
-       // let variant = e.target.getAttribute("variant")
-        //let idProduct = e.target.getAttribute("idProduct")
-        //let button=document.getElementById(idProduct)
         imageProduct.setAttribute("src", image)
         imageProduct.setAttribute("defaultImage", image)
-       // button.setAttribute("currentVariant", variant)
     })
 }
