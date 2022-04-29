@@ -3,7 +3,6 @@ let products={
     quantity:1,
 };
 const updateProduct=(variant)=>{
-    alert(variant.id);
     products.id=variant.id
 }
 const updateQuantity=(quantity)=>{
@@ -36,7 +35,7 @@ const addToCart= (button) => {
                 id:undefined,
                 quantity:1,
             };
-            window.document.location.href = "https://luis-giraldo-store.myshopify.com/cart"
+            window.top.location.href = "/cart"
         });
     }
 }
