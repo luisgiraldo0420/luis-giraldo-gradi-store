@@ -4,7 +4,7 @@ let products={
 };
 const updateProduct=(variant)=>{
    
-   console.log(variant.available);
+   console.log(variant);
             products.id=variant.id
      
    
