@@ -41,23 +41,23 @@
                                   assign currentPosition=forloop.index | minus: 1
                                   assign variant=product.variants[currentPosition]
                               %}
-                                <input 
-                                class="input_productgrid" 
-                                id="{{ variant.id }}"
-                                onchange=updateProduct(this)
-                                idImageProd="product_image-{{product.url}}"
-                                image_hover="{{variant | image_url}}"
-                                value="{{ value | handle }}"
-                                type="radio"
-                                {% if product_option.selected_value == value %}checked{% endif %}>
+                               
                                 <label 
                                 for="{{ value | handle }}" 
                                 id="{{ variant.id }}"
                                 value="{{ value | handle }}"
                                 class="color_{{ value | handle }} input_productgrid" 
-                                onchange=updateProduct(this)
+                                onclick=updateProduct(this)
                                 idImageProd="product_image-{{product.url}}"
-                                image_hover="{{variant | image_url}}">&nbsp;</label>
+                                image_hover="{{variant | image_url}}"> <input 
+                                class="input_productgrid" 
+                                id="{{ variant.id }}"
+                                onclick=updateProduct(this)
+                                idImageProd="product_image-{{product.url}}"
+                                image_hover="{{variant | image_url}}"
+                                value="{{ value | handle }}"
+                                type="radio"
+                                {% if product_option.selected_value == value %}checked{% endif %}></label>
                                 {%- endfor -%}
                               </div>
                             {% else %}
