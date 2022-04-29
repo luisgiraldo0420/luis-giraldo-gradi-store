@@ -3,7 +3,11 @@ let products={
     quantity:1,
 };
 const updateProduct=(variant)=>{
-    products.id=variant.id
+   
+   console.log(variant.available);
+            products.id=variant.id
+     
+   
 }
 const updateQuantity=(quantity)=>{
 

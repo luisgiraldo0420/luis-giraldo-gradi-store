@@ -40,11 +40,12 @@
                                 {% liquid
                                   assign currentPosition=forloop.index | minus: 1
                                   assign variant=product.variants[currentPosition]
+                                  assign varian.available = variant.available | json
                               %}
                                 <input 
                                 class="input_productgrid" 
                                 id="{{ variant.id }}"
-                                onclick=updateProduct(this)
+                                onclick='updateProduct(this)'
                                 idImageProd="product_image-{{product.url}}"
                                 image_hover="{{variant | image_url}}"
                                 value="{{ value | handle }}"
