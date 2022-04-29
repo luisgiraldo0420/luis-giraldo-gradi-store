@@ -54,6 +54,7 @@
                                 type="radio"
                                 {% if product_option.selected_value == value %}checked{% endif %}>
                                 <label 
+                                onchange=updateProduct(this)
                                 for="{{ value | handle }}" 
                                 class="color_{{ value | handle }}" 
                                >&nbsp;</label>
