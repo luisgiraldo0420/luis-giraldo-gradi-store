@@ -2,18 +2,19 @@ let products={
     id:undefined,
     quantity:1,
 };
-const updateProduct=(variant)=>{
-    console.log(variant, '---------');
-    products.id=variant.id
-}
+
 const updateQuantity=(quantity)=>{
+
     products.quantity=quantity;
 }
 const addToCart= (button) => {
+    
+
     const quantity=document.getElementById(`quantity__input-${button.id}`)
-    console.log('-----------------', quantity);
     updateQuantity(quantity.value);
-    if(products.id!==undefined){
+
+    if(products.id !== undefined){
+       
         fetch(window.Shopify.routes.root + 'cart/add.js', {
             method: 'POST',
             headers: {
@@ -55,12 +56,11 @@ for(item of inputs) {
     item.addEventListener("click", function(e) {
         let image = e.target.getAttribute("image_hover")
         let imageProduct = document.getElementById(e.target.getAttribute("idImageProd"))
-        let variant = e.target.getAttribute("variant")
-        console.log(variant);
-        let idProduct = e.target.getAttribute("idProduct")
-        let button=document.getElementById(idProduct)
+       // let variant = e.target.getAttribute("variant")
+        //let idProduct = e.target.getAttribute("idProduct")
+        //let button=document.getElementById(idProduct)
         imageProduct.setAttribute("src", image)
         imageProduct.setAttribute("defaultImage", image)
-        button.setAttribute("currentVariant", variant)
+       // button.setAttribute("currentVariant", variant)
     })
 }
