@@ -40,12 +40,12 @@
                                 {% liquid
                                   assign currentPosition=forloop.index | minus: 1
                                   assign variant=product.variants[currentPosition]
-                                  assign disponible = variant.available | json
                               %}
                                 <input 
                                 class="input_productgrid" 
                                 id="{{ variant.id }}"
-                                onclick='updateProduct({{disponible}})'
+                                disponible="{{variant.available}}"
+                                onclick='updateProduct(this)'
                                 idImageProd="product_image-{{product.url}}"
                                 image_hover="{{variant | image_url}}"
                                 value="{{ value | handle }}"
@@ -53,6 +53,7 @@
                                 {% if product_option.selected_value == value %}checked{% endif %}>
                                 <label 
                                 for="{{ value | handle }}" 
+                                disponible="{{variant.available}}"
                                 id="{{ variant.id }}"
                                 value="{{ value | handle }}"
                                 class="color_{{ value | handle }} input_productgrid" 
