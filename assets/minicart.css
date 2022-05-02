@@ -2,8 +2,9 @@
     min-width: 300px;
     max-width: 300px;
     padding: 5px;
-    display: none;
-    
+}
+#minicartHiddenShow{
+  display: none;
 }
 .my-container{
     display: flex;
@@ -82,7 +83,9 @@ div.mini-shopping-cart .mini-cart-item div {
   font-weight: 600;
 }
 
-
+.cart-footer__price {
+  float: right;
+}
 
 
 

@@ -1,5 +1,6 @@
-{% if cart.item_count > 0 and cart.item_count != null %} 
+
 <div id="products_my_car">
+{% if cart.item_count > 0 and cart.item_count != null %} 
   {% for item in cart.items %}
   <div class="mini-cart-item">
     <div>
@@ -29,6 +30,7 @@
             type="number"
             name="updates[]"
             value="{{ item.quantity }}"
+            disabled
             min="0"
             aria-label="{{ 'products.product.quantity.input_label' | t: product: item.product.title | escape }}"
             id="Quantity-minicart{{ item.index | plus: 1 }}"
@@ -55,8 +57,8 @@
 </div>
     <hr class="separator"/>
   {% endfor %}
+  {% else %}
+  <h3 class="mini-cart__title cart_empty">{{ 'sections.cart.empty' | t }}</h3>
+  {% endif %} 
 </div>
 
-  {% else %}
-<h3 class="mini-cart__title cart_empty">{{ 'sections.cart.empty' | t }}</h3>
-{% endif %} 
