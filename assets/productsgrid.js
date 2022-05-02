@@ -33,6 +33,7 @@ const addToCart= (button) => {
                 id:undefined,
                 quantity:1,
             };
+           updateQuantityProduct();
            minicartHiddenShow();
             //window.top.location.href = "/cart"
         });

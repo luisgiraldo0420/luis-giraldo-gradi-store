@@ -1,0 +1,6 @@
+<div id="total-price-minicart" class="order-summary__section order-summary__section--total-lines" data-order-summary-section="payment-lines">
+    <span class="payment-due__price skeleton-while-loading--lg" data-checkout-payment-due-target="164000000">
+        {% assign  total = cart.total_price | json %}
+        {{ 'sections.cart.headings.total' | t }} : {{total | money}}
+    </span>
+</div>

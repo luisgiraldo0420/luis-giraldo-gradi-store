@@ -1,16 +1,10 @@
-
 <form action="{{ routes.cart_url }}" class="cart__contents critical-hidden" method="post" id="cart"></form>
     <div class="my-cart" id="minicartHiddenShow" data-ajax-cart-section>
         {% render 'header-my-cart' %}
         <div class="mini-shopping-cart">
         {% render 'products-minicart' %}
         </div>
-        <div class="order-summary__section order-summary__section--total-lines" data-order-summary-section="payment-lines">
-            <span class="payment-due__price skeleton-while-loading--lg" data-checkout-payment-due-target="164000000">
-                {% assign  total = cart.total_price | json %}
-                {{ 'sections.cart.headings.total' | t }} : {{total | money}}
-            </span>
-        </div>
+        {% render 'total-price-minicart' %}
         <button type="submit" id="checkout" class="cart__checkout-button button" name="checkout"{% if cart == empty %} disabled{% endif %} form="cart">
             {{ 'sections.cart.checkout' | t }}
         </button>
