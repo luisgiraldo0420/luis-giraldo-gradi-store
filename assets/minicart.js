@@ -18,27 +18,27 @@ function minicartHiddenShow() {
 
 const updateQuantityProduct  = async (button) =>{
     //nombre del boton presionado
-const operation = button.getAttribute('name')
+    const operation = button.getAttribute('name')
 
-const referenceToInput = button.getAttribute('referenceInput')
+    const referenceToInput = button.getAttribute('referenceInput')
 
-// id de la variante a actualizar
-const variantId = button.getAttribute('variant')
-const quantityInput = document.getElementById(referenceToInput)
-switch (operation){
-    case 'plus':
-        //Si presiona el bton + sumamos 1 y pasamos los parametros para actualizar 
-        await updateProductMinicart(variantId, parseInt(quantityInput.value) + 1)
-        break;
-    case 'minus':
-        //Si presiona el bton - restamos 1 y pasamos los parametros para actualizar
-        await updateProductMinicart(variantId, parseInt(quantityInput.value) - 1)
-        break;
-}
-//llamamos las secciones a actualizar
-await updatePriceMinicart()
-await updateTotalPriceMinicart()
-await updateCartBubble();
+    // id de la variante a actualizar
+    const variantId = button.getAttribute('variant')
+    const quantityInput = document.getElementById(referenceToInput)
+    switch (operation){
+        case 'plus':
+            //Si presiona el bton + sumamos 1 y pasamos los parametros para actualizar 
+            await updateProductMinicart(variantId, parseInt(quantityInput.value) + 1)
+            break;
+        case 'minus':
+            //Si presiona el bton - restamos 1 y pasamos los parametros para actualizar
+            await updateProductMinicart(variantId, parseInt(quantityInput.value) - 1)
+            break;
+    }
+    //llamamos las secciones a actualizar
+    await updatePriceMinicart()
+    await updateTotalPriceMinicart()
+    await updateCartBubble();
 }
 const updateProductMinicart = async (productId, quantity) =>{
     //actualizamos el objeto updates 
