@@ -1,0 +1,13 @@
+<h1>Ordenes===========</h1>
+<p>{{order | json}}</p>
+{{ order.fulfillment_status_label | json }}
+{{ order.fulfillment_status | json  }}
+
+{% if order.attributes %}
+  <p>Order notes:</p>
+  <ul>
+    {% for attribute in order.attributes %}
+      <li><strong>{{ attribute | first }}</strong>: {{ attribute | last }}</li>
+    {% endfor %}
+  </ul>
+{% endif %}

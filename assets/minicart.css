@@ -88,4 +88,28 @@ div.mini-shopping-cart .mini-cart-item div {
 }
 
 
+.container_slide{
+  display: flex;
+  align-items: flex-start;
+}
+.item1{
+  width: 50%;
+}
+.item2{
+  width: 50%;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

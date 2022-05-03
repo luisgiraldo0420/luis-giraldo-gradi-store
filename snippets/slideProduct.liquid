@@ -1,0 +1,37 @@
+<script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.0.1/dist/js/splide.min.js" defer="defer" ></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.0.1/dist/css/themes/splide-sea-green.min.css">
+
+<p>  {{ product.metafields.my_fields.title_slide }}</p>
+
+
+  <script>
+    document.addEventListener( 'DOMContentLoaded', function () {
+        new Splide('#image-carousel', {
+    type: 'loop',
+    perPage: 2,
+    focus: 'center',
+    autoplay: true,
+    pagination: true,
+    
+  }).mount();
+});
+  </script>
+<section id="image-carousel" class="splide" aria-label="Beautiful Images">
+    <div class="splide__track">
+        <ul class="splide__list">
+            {% for feature in product.metafields.my_fields.slider.value.feature %}
+              <li class="splide__slide" > 
+               <div class="container_slide">
+                   <div class="item1">
+                    <h3>{{feature.title}}</h3>  
+                    <p>{{feature.texto}}</p>
+                   </div>
+               <div class="item2">
+                <img src="{{product.metafields.my_fields[feature.imagen]  | image_url }}" alt="" width=200 >
+               </div>
+               </div>
+                </li>
+             {% endfor %}
+          </ul>
+    </div>
+  </section>

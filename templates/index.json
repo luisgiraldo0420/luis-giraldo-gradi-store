@@ -75,6 +75,9 @@
         "padding_bottom": 0
       }
     },
+    "analitycs": {
+      "type": "analitycs"
+    },
     "featured_collection": {
       "type": "featured-collection",
       "settings": {
@@ -203,6 +206,7 @@
   "order": [
     "image_banner",
     "rich_text",
+    "analitycs",
     "featured_collection",
     "collage",
     "video",

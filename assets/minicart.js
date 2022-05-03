@@ -8,11 +8,11 @@ function minicartHiddenShow() {
      if (x.style.display == "block") { 
         x.style.display = "none";
         y.style.opacity = 1;
-        y.style.pointerEvents = "all";
+       // y.style.pointerEvents = "all";
     } else {
         x.style.display = "block";
         y.style.opacity = 0.5;
-        y.style.pointerEvents = "none";
+        //y.style.pointerEvents = "none";
     } 
 }
 
