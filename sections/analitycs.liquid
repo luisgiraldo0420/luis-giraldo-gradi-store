@@ -2,8 +2,43 @@
 <noscript> {{ 'orders-users.css' | asset_url | stylesheet_tag}} </noscript>
 <script src="{{'orders-users.js' | asset_url }}" defer></script>
 
-<div class="customers">  
-  <p class="text_customers">Somos una tienda de alto impacto 
-      con más de XXXX órdenes entregadas y más de
-       XXXX clientes a nivel mundial.</p>
+<style>
+  .customers{
+    background-image: url({{section.settings.banner}});
+    background-position: center center;
+    background-size: cover;
+  }
+</style>
+
+
+
+<div class="customers"> 
+  <div class="icons_order">
+    <img class="item_banner_order_1" src="../assets/cargo.png" alt="">
+    <img class="item_banner_order_2" src="../assets/target.png" alt="">
+    <h2 class="banner__heading text_customers">{{section.settings.texto1}}</h2>
+  <h2 class="banner__heading text_customers">con más de <span class="banner_orders_number orders_banner"></span> órdenes entregadas</h2>
+  <h2 class="banner__heading text_customers">y más de <span class="banner_orders_number customers_banner"></span> clientes a nivel mundial.</h2>
+  </div> 
 </div>
+
+
+{% schema %}
+  {
+    "name": "analitycs",
+    "settings": [
+      {
+        "type": "textarea",
+        "id": "texto1",
+        "label": "texto1",
+        "default": "Somos una tienda de alto impacto"
+      },
+      {
+        "type": "image",
+        "id": "banner",
+        "label": "banner",
+        "default": "../assets/image2.jpg"
+      }
+    ]
+  }
+{% endschema %}

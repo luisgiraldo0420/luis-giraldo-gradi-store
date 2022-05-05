@@ -1,11 +1,26 @@
-.customers{
+/* .customers{
     background-image: url('../assets/image2.jpg');
     background-position: center center;
     background-size: cover;
-    padding: 5rem 0;
-    }
+    
+    } */
     
     .text_customers{
         color: white;
         text-align: center;
+    }
+    .item_banner_order_2{
+        float: left;
+        width: 10%;
+    }
+    .item_banner_order_1{
+        float: right;
+        width: 10%;
+    }
+    .icons_order{
+        width: 100%;
+        padding: 50px;
+    }
+    .banner_orders_number{
+font-weight: bold;
     }
