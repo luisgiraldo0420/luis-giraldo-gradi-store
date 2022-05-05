@@ -12,7 +12,11 @@
     focus: 'center',
     autoplay: true,
     pagination: true,
-    
+    breakpoints: {
+        640: {
+            perPage: 1,
+        }
+        }
   }).mount();
 });
   </script>
@@ -23,8 +27,12 @@
               <li class="splide__slide" > 
                <div class="container_slide">
                    <div class="item1">
-                    <h3>{{feature.title}}</h3>  
-                    <p>{{feature.texto}}</p>
+                    <h3>
+                      {{feature.title}}
+                    </h3>  
+                    <p>
+                      {{feature.texto}}
+                    </p>
                    </div>
                <div class="item2">
                 <img src="{{product.metafields.my_fields[feature.imagen]  | image_url }}" alt="" width=200 >

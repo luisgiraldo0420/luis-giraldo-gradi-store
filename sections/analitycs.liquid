@@ -1,13 +1,9 @@
-<h1>Ordenes===========</h1>
-<p>{{order | json}}</p>
-{{ order.fulfillment_status_label | json }}
-{{ order.fulfillment_status | json  }}
+<link rel="stylesheet" href="{{ 'orders-users.css' | asset_url }}" media="print" onload="this.media='all'">
+<noscript> {{ 'orders-users.css' | asset_url | stylesheet_tag}} </noscript>
+<script src="{{'orders-users.js' | asset_url }}" defer></script>
 
-{% if order.attributes %}
-  <p>Order notes:</p>
-  <ul>
-    {% for attribute in order.attributes %}
-      <li><strong>{{ attribute | first }}</strong>: {{ attribute | last }}</li>
-    {% endfor %}
-  </ul>
-{% endif %}
+<div class="customers">  
+  <p class="text_customers">Somos una tienda de alto impacto 
+      con más de XXXX órdenes entregadas y más de
+       XXXX clientes a nivel mundial.</p>
+</div>
