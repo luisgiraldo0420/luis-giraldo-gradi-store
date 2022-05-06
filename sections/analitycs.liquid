@@ -17,8 +17,9 @@
     <img class="item_banner_order_1" src="../assets/cargo.png" alt="">
     <img class="item_banner_order_2" src="../assets/target.png" alt="">
     <h2 class="banner__heading text_customers">{{section.settings.texto1}}</h2>
-  <h2 class="banner__heading text_customers">con más de <span class="banner_orders_number orders_banner"></span> órdenes entregadas</h2>
-  <h2 class="banner__heading text_customers">y más de <span class="banner_orders_number customers_banner"></span> clientes a nivel mundial.</h2>
+  <h2 class="banner__heading text_customers">
+    {{section.settings.texto2}} <span class="banner_orders_number orders_banner"></span> {{section.settings.texto3}}</h2>
+  <h2 class="banner__heading text_customers">{{section.settings.texto4}} <span class="banner_orders_number customers_banner"></span> {{section.settings.texto5}}</h2>
   </div> 
 </div>
 
@@ -38,6 +39,30 @@
         "id": "banner",
         "label": "banner",
         "default": "../assets/image2.jpg"
+      },
+      {
+        "type": "textarea",
+        "id": "texto2",
+        "label": "texto2",
+        "default": "con más de"
+      },
+      {
+        "type": "textarea",
+        "id": "texto3",
+        "label": "texto3",
+        "default": "órdenes entregadas"
+      },
+      {
+        "type": "textarea",
+        "id": "texto4",
+        "label": "texto4",
+        "default": "y más de"
+      }, 
+      {
+        "type": "textarea",
+        "id": "texto5",
+        "label": "texto5",
+        "default": "clientes a nivel mundial."
       }
     ]
   }
